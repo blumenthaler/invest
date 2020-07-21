@@ -1,6 +1,4 @@
-require "invest/version"
+require_relative "./invest/version"
+require_relative './invest/cli'
 
-module Invest
-  class Error < StandardError; end
-  # Your code goes here...
-end
+
