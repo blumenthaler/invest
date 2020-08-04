@@ -4,11 +4,22 @@ class Invest::Topic
   @@all = []
   
   def self.scrape_topics
-    topics = []
+    @topics = []
     
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
+    name = doc.css("a#dictionary-top24-list__sublist_1-0-38 span.link__wrapper").text.strip
+    url = doc.css("a#dictionary-top24-list__sublist_1-0-38").attribute('href').value
+    doc_2 = Nokogiri::HTML(open(url))
+    takeaways = doc_2.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip
+    definition = doc_2.css("p#mntl-sc-block_1-0-1").text.strip
+    topic = Invest::Topic.new
+    topic.name = name
+    topic.definition = definition
+    topic.takeaways = takeaways
+    topic.url = url
+    @topics << topic
     binding.pry
-    topics
+    @topics
   end
   
   def self.all
