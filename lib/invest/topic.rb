@@ -1,6 +1,8 @@
 class Invest::Topic
   attr_accessor :name, :definition, :takeaways, :url
   
+  def initialize(name = nil, definition = nil, takeaways = nil, url = nil)
+  end
   @@all = []
   
   def self.scrape_topics
@@ -22,13 +24,13 @@ class Invest::Topic
        topic.url = @url_array[index]
      end
       binding.pry
-  # assign urls to topics??
-      # opened_url = Nokogiri::HTML(open(new_topic.url))
-      # new_topic.definition = opened_url.css("p#mntl-sc-block_1-0-1").text.strip
-      # new_topic.takeaways = opened_url.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip
-      # binding.pry
-      # @@all << new_topic
-  #   end
+    
+    @@all.each do |topic|
+      opened_url = Nokogiri::HTML(open(topic.url))
+      topic.definition = opened_url.css("p#mntl-sc-block_1-0-1").text.strip
+      topic.takeaways = opened_url.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip
+      binding.pry
+    end
     
   # These topics need to not be hard coded...
   # Scrape the webpage, instantiate a Topic, take data from scrape & apply to attrs
