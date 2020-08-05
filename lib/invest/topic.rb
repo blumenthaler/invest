@@ -9,15 +9,17 @@ class Invest::Topic
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
   # array of all topic names, as scraped from doc (dictionary webpage)
     @topics_array = doc.css("a.dictionary-top24-list__sublist.mntl-text-link").map{|n| n.text}
+  # array of all urls in the same order as @topic_array
+    @url_array = doc.css("a.dictionary-top24-list__sublist.mntl-text-link").map{|n| n.attribute("href").value}
     
-    @topics_array.each do |topic|
-      new_topic = Invest::Topic.new
-      new_topic.name = topic
-      new_topic.url =
-      new_topic.definition =
-      new_topic.takeaways = 
-      @@all << new_topic
-    end
+    # @topics_array.each do |topic|
+    #   new_topic = Invest::Topic.new
+    #   new_topic.name = topic
+    #   new_topic.url = * an href attribute that contains topic name * doc.css("a.dictionary-top24-list__sublist.mntl-text-link").attribute("href").value
+    #   new_topic.definition =
+    #   new_topic.takeaways = 
+    #   @@all << new_topic
+    # end
     
   # These topics need to not be hard coded...
   # Scrape the webpage, instantiate a Topic, take data from scrape & apply to attrs
