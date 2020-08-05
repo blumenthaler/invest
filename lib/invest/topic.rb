@@ -11,6 +11,17 @@ class Invest::Topic
     @topics_array = doc.css("a.dictionary-top24-list__sublist.mntl-text-link").map{|n| n.text}
     
     
+  # def list_by_first_letter
+  #   input = gets.strip
+  #   @topics_array.each do |topic|
+  #     if input == topic.chr
+  #       puts topic
+  #     end
+  #   end
+  # end
+    
+    
+    
     name = doc.css("a#dictionary-top24-list__sublist_1-0-38 span.link__wrapper").text.strip
     url = doc.css("a#dictionary-top24-list__sublist_1-0-38").attribute('href').value
     doc_2 = Nokogiri::HTML(open(url))
