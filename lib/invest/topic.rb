@@ -7,6 +7,10 @@ class Invest::Topic
     @topics = []
     
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
+  # array of all topic names, as scraped from doc (dictionary webpage)
+    @topics_array = doc.css("a.dictionary-top24-list__sublist.mntl-text-link").map{|n| n.text}
+    
+    
     name = doc.css("a#dictionary-top24-list__sublist_1-0-38 span.link__wrapper").text.strip
     url = doc.css("a#dictionary-top24-list__sublist_1-0-38").attribute('href').value
     doc_2 = Nokogiri::HTML(open(url))
