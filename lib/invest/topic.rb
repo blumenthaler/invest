@@ -10,7 +10,22 @@ class Invest::Topic
   # array of all topic names, as scraped from doc (dictionary webpage)
     @topics_array = doc.css("a.dictionary-top24-list__sublist.mntl-text-link").map{|n| n.text}
     
+    @topics_array.each do |topic|
+      new_topic = Invest::Topic.new
+      new_topic.name = topic
+      new_topic.url =
+      new_topic.definition =
+      new_topic.takeaways = 
+      @@all << new_topic
+    end
     
+  # These topics need to not be hard coded...
+  # Scrape the webpage, instantiate a Topic, take data from scrape & apply to attrs
+  # Each instance of topic should shovel into @@all array upon instantiation
+  
+    
+    
+  # probably cli?? not sure yet  
   # def list_by_first_letter
   #   input = gets.strip
   #   @topics_array.each do |topic|
@@ -40,9 +55,7 @@ class Invest::Topic
   def self.all
   # return all instances of Topic class  
   
-  # These topics need to not be hard coded...
-  # Scrape the webpage, instantiate a Topic, take data from scrape & apply to attrs
-  # Each instance of topic should shovel into @@all array upon instantiation
+
   
     topic_1 = self.new
     topic_1.name = "Annuity"
