@@ -3,14 +3,17 @@ class Invest::Scraper
   def self.scrape_page_for_terms(input)
     # I need to instantiate Topics for each term that is matched--
     # as well as apply name & url attrs for each topic (upon instantiation)
-    
-    @topics = []
-    
+  
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
     alphabet = ("A".."Z").to_a
+    
     if input == "#"
       @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0").map{|n| n.text}
       @topic_names = @topic_names[0].split("\n")
+        if @topic_names.include?("")
+          @topic_names.delete("")
+        end
+      @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_1-0 a").map{|n| n.attribute("href").value}
     elsif input != "exit"
       alphabet.each_with_index do |letter, index|
         if input.chr == letter
@@ -19,14 +22,16 @@ class Invest::Scraper
           if @topic_names.include?("")
             @topic_names.delete("")
           end
-          @topic_names.each do |t_name|
-            topic = Invest::Topic.new
-            topic.name = t_name
-            # topic.url = doc.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a").attribute("href").value
-          end
+          @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a").map{|n| n.attribute("href").value}
         end
       end
     end
+      @topic_names.each_with_index do |t_name, index|
+      topic = Invest::Topic.new
+      topic.name = t_name
+      topic.url = @topic_urls[index]
+    end
+    binding.pry 
   end
     
       # if doc.css("a span.link__wrapper").text == topic.name
