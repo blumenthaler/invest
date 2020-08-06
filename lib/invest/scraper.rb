@@ -1,6 +1,6 @@
 class Invest::Scraper
   
-  def self.scrape_page_for_terms(input)
+  def scrape_dictionary_for_terms(input)
     # I need to instantiate Topics for each term that is matched--
     # as well as apply name & url attrs for each topic (upon instantiation)
   
@@ -31,7 +31,6 @@ class Invest::Scraper
       topic.name = t_name
       topic.url = @topic_urls[index]
     end
-    binding.pry 
   end
     
       # if doc.css("a span.link__wrapper").text == topic.name
