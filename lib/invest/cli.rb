@@ -2,13 +2,14 @@ class Invest::CLI
   
   def call
     # prints greeting
-    puts "Welcome to Investment Definitions!"
+    puts "---------Welcome to Investment Definitions!---------"
     list_topics_by_first_letter
     display_definitions
   end
 
   def list_topics_by_first_letter
     puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
+    puts "----------------------------------------------------"
     alphabet = ("A".."Z").to_a
     input = gets.strip
     scraper = Invest::Scraper.new
@@ -16,7 +17,7 @@ class Invest::CLI
         exit_program
       elsif alphabet.include?(input) || input == "#"
         scraper.scrape_dictionary_for_terms(input)
-        puts "----------FINANCIAL TERMS (#{input})----------"
+        puts "----------------FINANCIAL TERMS (#{input})-----------------"
           Invest::Topic.all.each_with_index do |topic, index|
           puts "#{index + 1}. #{topic.name}"
           end
@@ -29,9 +30,9 @@ class Invest::CLI
   def display_definitions
     input = nil
     while input != "exit"
-    puts "---------------------------------"
+    puts "----------------------------------------------------"
     puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
-    puts "---------------------------------"
+    puts "----------------------------------------------------"
     input = gets.strip.downcase
       if input.to_i > 0
         topic = Invest::Topic.all[input.to_i - 1]
@@ -55,22 +56,6 @@ class Invest::CLI
       end
     end
   end
-    
- # We TAKE the input and SCRAPE Dictionary page, collect those topics that start with that character
-   # here, we should add the name & url attrs
-   # that way, we can match the upcoming input, and then scrape the individual page
-
-        # Invest::Topic.scrape_topics
-    #   Invest::Topic.all.each do |topic|
-    #     if input == "#" && topic.name.chr.to_i > 0
-    #       puts topic.name
-    #     elsif input == topic.name.chr
-    #       puts topic.name
-    #     end
-      
-
-    
-
     
   def exit_program
     puts "Goodbye!"
