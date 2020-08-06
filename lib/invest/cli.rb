@@ -7,7 +7,7 @@ class Invest::CLI
     # display_definitions
   end
 
-  def self.list_topics_by_first_letter
+  def list_topics_by_first_letter
       
     # list topics by first letter upon user input:
       # ask for input: first letter of topic or # for number
@@ -22,6 +22,11 @@ class Invest::CLI
           puts topic.name
         end
       end
+      
+      
+      
+      
+      
     # puts "--------FINANCIAL TERMS:---------"
     # @topics = Invest::Topic.all
     # @topics.each.with_index(1) do |topic, i|
