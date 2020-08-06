@@ -9,13 +9,21 @@ class Invest::CLI
 
   def list_topics_by_first_letter
     puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
+    alphabet = ("A".."Z").to_a
     input = gets.strip
     scraper = Invest::Scraper.new
-    scraper.scrape_dictionary_for_terms(input)
-    puts "----------FINANCIAL TERMS (#{input})----------"
-    Invest::Topic.all.each_with_index do |topic, index|
-      puts "#{index + 1}. #{topic.name}"
-    end
+      if input == "exit"
+        exit_program
+      elsif alphabet.include?(input) || input == "#"
+        scraper.scrape_dictionary_for_terms(input)
+        puts "----------FINANCIAL TERMS (#{input})----------"
+          Invest::Topic.all.each_with_index do |topic, index|
+          puts "#{index + 1}. #{topic.name}"
+          end
+      else
+        puts "I am sorry, I do not understand your input, please try again."
+        list_topics_by_first_letter
+      end
   end
   
   def display_definitions
@@ -25,15 +33,21 @@ class Invest::CLI
     puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
     puts "---------------------------------"
     input = gets.strip.downcase
-      
       if input.to_i > 0
         topic = Invest::Topic.all[input.to_i - 1]
-        puts "--------#{topic.name}---------"
+        puts "--------#{input.to_i}. #{topic.name}---------"
         puts topic.definition
-        puts topic.takeaways
+        if topic.takeaways != nil && topic.takeaways != ""
+          puts "--------KEY TAKEAWAYS---------"
+          topic.takeaways.each_with_index do |takeaway, index|
+          puts "#{index + 1}. #{takeaway}"
+          puts "--------------------------------"
+          end
+        end
         puts "If you would like to learn more, visit: #{topic.url}"
       elsif input == "topics"
-        list_topics
+        Invest::Topic.all.clear
+        list_topics_by_first_letter
       elsif input == "exit"
         exit_program
       else
@@ -54,13 +68,6 @@ class Invest::CLI
     #       puts topic.name
     #     end
       
-      
-      
-    # puts "--------FINANCIAL TERMS:---------"
-    # @topics = Invest::Topic.all
-    # @topics.each.with_index(1) do |topic, i|
-    #   puts "#{i}. #{topic.name}"
-    # end
 
     
 

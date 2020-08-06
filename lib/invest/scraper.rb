@@ -1,12 +1,12 @@
 class Invest::Scraper
   
-  def self.scrape_dictionary_for_terms(input)
-    # I need to instantiate Topics for each term that is matched--
-    # as well as apply name & url attrs for each topic (upon instantiation)
+  def scrape_dictionary_for_terms(input)
   
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
-    alphabet = ("A".."Z").to_a
-    
+    alphabet_front = ("A".."M").to_a
+    alphabet_back = ("N".."Z").to_a
+    @topic_names = nil
+    @topic_urls = nil
     if input == "#"
       @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0").map{|n| n.text}
       @topic_names = @topic_names[0].split("\n")
@@ -15,7 +15,8 @@ class Invest::Scraper
         end
       @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_1-0 a").map{|n| n.attribute("href").value}
     elsif input != "exit"
-      alphabet.each_with_index do |letter, index|
+      if alphabet_front.include?(input)
+      alphabet_front.each_with_index do |letter, index|
         if input.chr == letter
           @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1}").map{|n| n.text}
           @topic_names = @topic_names[0].split("\n")
@@ -24,6 +25,25 @@ class Invest::Scraper
           end
           @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a").map{|n| n.attribute("href").value}
         end
+      end
+      elsif alphabet_back.include?(input)
+      alphabet_back.each_with_index do |letter, index|
+        if input.chr == letter && letter == "N"
+          @topic_names = doc.css("div#dictionary-top24-list__sublist-content_2-0").map{|n| n.text}
+          @topic_names = @topic_names[0].split("\n")
+          if @topic_names.include?("")
+            @topic_names.delete("")
+          end
+          @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_2-0 a").map{|n| n.attribute("href").value}
+        elsif input.chr == letter && letter != "N"
+          @topic_names = doc.css("div#dictionary-top24-list__sublist-content_2-0-#{index}").map{|n| n.text}
+          @topic_names = @topic_names[0].split("\n")
+            if @topic_names.include?("")
+              @topic_names.delete("")
+            end
+          @topic_urls = doc.css("div#dictionary-top24-list__sublist-content_2-0-#{index} a").map{|n| n.attribute("href").value}
+        end
+        end  
       end
     end
       @topic_names.each_with_index do |t_name, index|
