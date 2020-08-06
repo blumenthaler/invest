@@ -26,7 +26,7 @@ class Invest::Topic
     # @topics << topic
     # binding.pry
     # @topics
-  end
+  
   
   def self.all
   # return all instances of Topic class  

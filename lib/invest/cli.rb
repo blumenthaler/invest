@@ -14,6 +14,10 @@ class Invest::CLI
       # list topics withg matching first letter (or all that start with a number)
     puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
     input = gets.strip
+    
+ # We TAKE the input and SCRAPE Dictionary page, collect those topics that start with that character
+   # here, we should add the name & url attrs
+   # that way, we can match the upcoming input, and then scrape the individual page
     Invest::Topic.scrape_topics
       Invest::Topic.all.each do |topic|
         if input == "#" && topic.name.chr.to_i > 0
