@@ -27,8 +27,13 @@ SCRAPER needs to be more efficient:
     1. We prompt user for first letter of the topic (or # for number) (CLI)
     2. user inputs # or A-Z (CLI)
     3. We TAKE the input and SCRAPE Dictionary page, collect those topics that start with that character
-        here, we should add the name & url attrs
-        that way, we can match the upcoming input, and then scrape the individual page
+
+      I am here in the process:
+        #scrape_page_for_terms(input) works,
+        but I need to instantiate Topics for each term that is matched--
+        as well as apply name & url attrs for each topic (upon instantiation)
+        that way, we can match the upcoming input, and then scrape the individual page as needed
+        
     4. We puts the resulting list (topic names) to the user & ask for which one they want to see (CLI)
     5. user inputs name of topic they wish to see (CLI)
     6. we scrape THAT INDIVIDUAL PAGE (topic url) UPON REQUEST to show the topic definition and key takeaways (if applicable)
