@@ -25,10 +25,10 @@ SCRAPER needs to be more efficient:
  So, we need it to scrape when needed
  We ask user for the first letter of the topic they wish to see
  So, we need to scrape the page for those topics upon request
-    1. We prompt user for first letter of the topic (or # for number)
-    2. user inputs # or A-Z
-    3. We TAKE the input and SCRAPE ONLY those topics that start with that character
-    4. We puts the resulting list to the user & ask for which one they want to see
-    5. user inputs name of topic they wish to see
+    1. We prompt user for first letter of the topic (or # for number) (CLI)
+    2. user inputs # or A-Z (CLI)
+    3. We TAKE the input and SCRAPE ONLY those topics that start with that character 
+    4. We puts the resulting list to the user & ask for which one they want to see (CLI)
+    5. user inputs name of topic they wish to see (CLI)
     6. we scrape THAT INDIVIDUAL PAGE UPON REQUEST to show the topic definition and key takeaways (if applicable)
     7. Repeat this loop, or exit
