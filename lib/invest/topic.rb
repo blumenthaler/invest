@@ -23,30 +23,17 @@ class Invest::Topic
      @@all.each_with_index do |topic, index|
        topic.url = @url_array[index]
      end
-      binding.pry
     
     @@all.each do |topic|
       opened_url = Nokogiri::HTML(open(topic.url))
       topic.definition = opened_url.css("p#mntl-sc-block_1-0-1").text.strip
       topic.takeaways = opened_url.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip
-      binding.pry
     end
+    binding.pry
     
   # These topics need to not be hard coded...
   # Scrape the webpage, instantiate a Topic, take data from scrape & apply to attrs
   # Each instance of topic should shovel into @@all array upon instantiation
-  
-    
-    
-  # probably cli?? not sure yet  
-  # def list_by_first_letter
-  #   input = gets.strip
-  #   @topics_array.each do |topic|
-  #     if input == topic.chr
-  #       puts topic
-  #     end
-  #   end
-  # end
     
     
     
@@ -67,24 +54,21 @@ class Invest::Topic
   
   def self.all
   # return all instances of Topic class  
-  
-
-  
-    topic_1 = self.new
-    topic_1.name = "Annuity"
-    topic_1.definition = "Annuity Definition"
-    topic_1.takeaways = "Annuity Key Takeaways"
-    topic_1.url = "Anuity URL"
+    # topic_1 = self.new
+    # topic_1.name = "Annuity"
+    # topic_1.definition = "Annuity Definition"
+    # topic_1.takeaways = "Annuity Key Takeaways"
+    # topic_1.url = "Anuity URL"
     
-    topic_2 = self.new
-    topic_2.name = "Asset Management"
-    topic_2.definition = "Asset Management Definition"
-    topic_2.takeaways = "Asset Management Key Takeaways"
-    topic_2.url = "Asset Management URL"
+    # topic_2 = self.new
+    # topic_2.name = "Asset Management"
+    # topic_2.definition = "Asset Management Definition"
+    # topic_2.takeaways = "Asset Management Key Takeaways"
+    # topic_2.url = "Asset Management URL"
     
-    [topic_1, topic_2]
+    # [topic_1, topic_2]
     
-  # @@all
+    @@all
   end
   
 end

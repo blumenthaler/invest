@@ -8,7 +8,19 @@ class Invest::CLI
   end
 
   def list_topics
-    # lists all topics
+    # lists all topics? Do I really want this?
+    # list topics by first letter upon user input:
+      # ask for input: first letter of topic or # for number
+      # list topics withg matching first letter (or all that start with a number)
+        # def list_by_first_letter
+        # puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
+          #   input = gets.strip
+          #   Invest::Topic.all.each do |topic|
+          #     if input == topic.chr
+            #       puts topic
+          #     end
+          #   end
+        # end
     puts "--------FINANCIAL TERMS:---------"
     @topics = Invest::Topic.all
     @topics.each.with_index(1) do |topic, i|
@@ -42,8 +54,7 @@ class Invest::CLI
     end
   end
     
-    def exit_program
-      puts "Goodbye!"
-    end
-  
+  def exit_program
+    puts "Goodbye!"
+  end
 end
