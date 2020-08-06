@@ -18,11 +18,11 @@ class Invest::Scraper
     Invest::Topic.all << new_topic
   end
      
-  @@all.each_with_index do |topic, index|
+  Invest::Topic.all.each_with_index do |topic, index|
     topic.url = @url_array[index]
   end
     
-  @@all.each do |topic|
+  Invest::Topic.all.each do |topic|
     opened_url = Nokogiri::HTML(open(topic.url))
     topic.definition = opened_url.css("p#mntl-sc-block_1-0-1").text.strip
     topic.takeaways = opened_url.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip

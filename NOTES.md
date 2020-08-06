@@ -13,7 +13,6 @@ User inputs which topic definition they want to see
 Display topic definition, key takeaways, and site URL ("To learn more, visit:")
 Ask user to input "list" to list the topics again or "exit" to exit application
 
-
 Topics:
 Topic has a name
 Topic has a definition
@@ -27,8 +26,10 @@ SCRAPER needs to be more efficient:
  So, we need to scrape the page for those topics upon request
     1. We prompt user for first letter of the topic (or # for number) (CLI)
     2. user inputs # or A-Z (CLI)
-    3. We TAKE the input and SCRAPE ONLY those topics that start with that character 
-    4. We puts the resulting list to the user & ask for which one they want to see (CLI)
+    3. We TAKE the input and SCRAPE Dictionary page, collect those topics that start with that character
+        here, we should add the name & url attrs
+        that way, we can match the upcoming input, and then scrape the individual page
+    4. We puts the resulting list (topic names) to the user & ask for which one they want to see (CLI)
     5. user inputs name of topic they wish to see (CLI)
-    6. we scrape THAT INDIVIDUAL PAGE UPON REQUEST to show the topic definition and key takeaways (if applicable)
+    6. we scrape THAT INDIVIDUAL PAGE (topic url) UPON REQUEST to show the topic definition and key takeaways (if applicable)
     7. Repeat this loop, or exit
