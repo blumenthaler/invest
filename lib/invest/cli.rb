@@ -22,18 +22,16 @@ class Invest::CLI
     input = nil
     while input != "exit"
     puts "---------------------------------"
-    puts "Select the number of the topic you would like to learn more about (1-#{@topics.size}), type topics to see the list of topics again, or type exit."
+    puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
     puts "---------------------------------"
     input = gets.strip.downcase
       
       if input.to_i > 0
-        
-        topic = @topics[input.to_i - 1]
-        puts "--------#{topic.name}--------"
+        topic = Invest::Topic.all[input.to_i - 1]
+        puts "--------#{topic.name}---------"
         puts topic.definition
         puts topic.takeaways
         puts "If you would like to learn more, visit: #{topic.url}"
-        
       elsif input == "topics"
         list_topics
       elsif input == "exit"
