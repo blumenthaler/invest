@@ -7,8 +7,21 @@ class Invest::Scraper
     @topics = []
     
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
+    alphabet = ("A".."Z").to_a
     if input == "#" 
       @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0").map{|n| n.text}
+      @topic_names = @topic_names[0].split("\n")
+    elsif input != "exit"
+      alphabet.each_with_index do |letter, index|
+        if input.chr == letter
+          @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1}").map{|n| n.text}
+          @topic_names = @topic_names[0].split("\n")
+          if @topic_names.include?("")
+            @topic_names.delete("")
+          end
+        end
+      end
+    end
     binding.pry
       
       
@@ -37,7 +50,6 @@ class Invest::Scraper
     topic.takeaways = opened_url.css("div#mntl-sc-block-callout-body_1-0 ul li").text.strip
   end
     
-  end
   
   
 end
