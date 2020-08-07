@@ -9,17 +9,24 @@ class Invest::Scraper
 # that method will return an array of urls of topics with the same first letter
 # Scraper.make_topics will use that array to create topic class instances
   
+  @urls = []
+  
   def self.scrape_topic_page_from_input(input)
     alphabet_front = ("A".."M").to_a
     alphabet_back = ("N".."Z").to_a
+    @urls.clear
+    
+    # <a href="https://www.investopedia.com/terms/1/1-10net30.asp" id="dictionary-top24-list__sublist_1-0" class=" dictionary-top24-list__sublist mntl-text-link" data-tracking-container="true"><span class="link__wrapper">1%/10 Net 30</span></a>
     
     if input == "#"
-      @urls = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0 a").map{|n| n.attribute("href").value}
+      self.get_page.css("div#dictionary-top24-list__sublist-content_1-0 a.dictionary-top24-list__sublist.mntl-text-link")
     elsif input != "exit"
       if alphabet_front.include?(input)
         alphabet_front.each_with_index do |letter, index|
           if input.chr == letter
-            @urls = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a").map{|n| n.attribute("href").value}
+            # make sure all of these are the nokogiri'd html of each index page
+            @urls = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a.dictionary-top24-list__sublist.mntl-text-link")
+            # .map{|n| n.attribute("href").value}
           end
         end
       elsif alphabet_back.include?(input)

@@ -5,10 +5,10 @@ class Invest::Topic
   
   def self.new_from_index_page(r)
     self.new(
-      # name css selector:             
-      # definition css selector:        
-      # takeaways css selector:         
-      # url css selector:              
+      # name css selector:    r.css("").text.strip     ,    
+      # definition css selector: r.css("").text.strip  ,      
+      # takeaways css selector: r.css(").text.strip ,       
+      # r            
       )
   end
   
