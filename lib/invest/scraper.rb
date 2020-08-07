@@ -41,7 +41,7 @@ class Invest::Scraper
   end
 
 # makes topic object instances from index
-  def make_topics
+  def self.make_topics
     @@topic_indexes.each do |r|
       Invest::Topic.new_from_index_page(r)
     end
