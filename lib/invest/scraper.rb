@@ -28,8 +28,7 @@ class Invest::Scraper
     doc = Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
     alphabet_front = ("A".."M").to_a
     alphabet_back = ("N".."Z").to_a
-    @topic_names = nil
-    @topic_urls = nil
+
     if input == "#"
       @topic_names = doc.css("div#dictionary-top24-list__sublist-content_1-0").map{|n| n.text}
       @topic_names = @topic_names[0].split("\n")
