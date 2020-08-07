@@ -10,9 +10,23 @@ class Invest::Scraper
     
     if input == "#"
       self.get_page.css("div#dictionary-top24-list__sublist-content_1-0 a").map{|n| n.attribute("href").value}
-      binding.pry
+    elsif input != "exit"
+      if alphabet_front.include?(input)
+        alphabet_front.each_with_index do |letter, index|
+          if input.chr == letter
+            self.get_page.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a").map{|n| n.attribute("href").value}
+          end
+        end
+      elsif alphabet_back.include?(input)
+        alphabet_back.each_with_index do |letter, index|
+          if input.chr == letter && letter == "N"
+            self.get_page.css("div#dictionary-top24-list__sublist-content_2-0 a").map{|n| n.attribute("href").value}
+          elsif input.chr == letter && letter != "N"
+           self.get_page.css("div#dictionary-top24-list__sublist-content_2-0-#{index} a").map{|n| n.attribute("href").value}
+          end
+        end  
+      end
     end
-    
   end
         # makes restaurant objects from index
   # def make_topics
