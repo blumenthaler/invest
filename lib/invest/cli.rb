@@ -1,7 +1,7 @@
 class Invest::CLI
   
   def call
-    # prints greeting
+ #   Invest::Scraper.new.make_topics
     puts "---------Welcome to Investment Definitions!---------"
     list_topics_by_first_letter
     display_definitions
