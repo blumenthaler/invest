@@ -5,9 +5,9 @@ class Invest::Topic
   
   def self.new_from_index_page(r)
     self.new(
-      # name css selector:    r.css("name selector").text.strip     ,    
-        r.css("span.link__wrapper").text,      
-        r.attribute("href").text
+        r.css("span.link__wrapper").text,     # name  
+        Nokogiri::HTML(open(r.attribute("href").text)).css("p#mntl-sc-block_1-0-1").text.delete("\n")  ,  # definition
+        r.attribute("href").text              # url
       )
       binding.pry
   end

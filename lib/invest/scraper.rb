@@ -34,7 +34,7 @@ class Invest::Scraper
   return @@topic_indexes
     binding.pry
   end
-
+  
 # makes topic object instances from index
   def self.make_topics
     @@topic_indexes.each do |r|
