@@ -38,13 +38,6 @@ class Invest::CLI
         topic = Invest::Topic.all[input.to_i - 1]
         puts "--------#{input.to_i}. #{topic.name}---------"
         puts topic.definition
-        if topic.takeaways != nil && topic.takeaways != ""
-          puts "--------KEY TAKEAWAYS---------"
-          topic.takeaways.each_with_index do |takeaway, index|
-          puts "#{index + 1}. #{takeaway}"
-          puts "--------------------------------"
-          end
-        end
         puts "If you would like to learn more, visit: #{topic.url}"
       elsif input == "topics"
         Invest::Topic.all.clear

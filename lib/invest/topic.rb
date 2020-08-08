@@ -1,5 +1,5 @@
 class Invest::Topic
-  attr_accessor :name, :definition, :takeaways, :url
+  attr_accessor :name, :definition, :url
     
   @@all = []
   
@@ -7,16 +7,14 @@ class Invest::Topic
     self.new(
       # name css selector:    r.css("name selector").text.strip     ,    
         r.css("span.link__wrapper").text,      
-      # takeaways css selector: r.css("takeaways selector").text.strip ,       
         r.attribute("href").text
       )
       binding.pry
   end
   
-  def initialize(name = nil, definition = nil, takeaways = nil, url = nil)
+  def initialize(name = nil, definition = nil, url = nil)
     @name = name
     @definition = definition
-    @takeaways = takeaways
     @url = url
     @@all << self
   end
