@@ -37,15 +37,22 @@ class Invest::CLI
       if input.to_i > 0
         @scraper.definition(input)
         @scraper.takeaways(input)
-        binding.pry
         topic = Invest::Topic.all[input.to_i - 1]
         puts "--------#{input.to_i}. #{topic.name}---------"
+        puts " "
         puts topic.definition
-        puts "----------KEY TAKEAWAYS-----------"
-        topic.takeaways.each_with_index do |t_a, i| 
-          puts "#{i + 1}. #{t_a}"
-          puts "----------------------------------"
+        if topic.takeaways == nil || topic.takeaways == []
+          puts " "
+        else
+          puts " "
+          puts "----------KEY TAKEAWAYS-----------"
+          topic.takeaways.each_with_index do |t_a, i| 
+            puts " "
+            puts "#{i + 1}. #{t_a}"
+          end
         end
+        puts " "
+        puts "----------------------------------------------------"  
         puts "If you would like to learn more, visit: #{topic.url}"
         puts "----------------------------------------------------"
       elsif input == "topics"
