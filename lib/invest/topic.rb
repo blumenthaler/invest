@@ -8,7 +8,6 @@ class Invest::Topic
         r.css("span.link__wrapper").text,     # name  
         r.attribute("href").text              # url
       )
-      binding.pry
   end
   
   def initialize(name = nil, url = nil, definition = nil, takeaways = nil)

@@ -12,11 +12,12 @@ class Invest::CLI
     puts "----------------------------------------------------"
     alphabet = ("A".."Z").to_a
     input = gets.strip
-    scraper = Invest::Scraper.new
+    @scraper = Invest::Scraper.new
       if input == "exit"
         exit_program
       elsif alphabet.include?(input) || input == "#"
-        scraper.scrape_dictionary_for_terms(input)
+        @scraper.scrape_topic_page_from_input(input)
+        @scraper.make_topics
         puts "----------------FINANCIAL TERMS (#{input})-----------------"
           Invest::Topic.all.each_with_index do |topic, index|
           puts "#{index + 1}. #{topic.name}"
@@ -35,10 +36,19 @@ class Invest::CLI
     puts "----------------------------------------------------"
     input = gets.strip.downcase
       if input.to_i > 0
+        definition = @scraper.definition(input)
+        takeaways = @scraper.takeaways(input)
+        binding.pry
         topic = Invest::Topic.all[input.to_i - 1]
         puts "--------#{input.to_i}. #{topic.name}---------"
         puts topic.definition
+        puts "----------KEY TAKEAWAYS-----------"
+        topic.takeaways.each_with_index do |t_a, i| 
+          puts "#{i + 1}. #{t_a}"
+          puts "----------------------------------"
+        end
         puts "If you would like to learn more, visit: #{topic.url}"
+        puts "----------------------------------------------------"
       elsif input == "topics"
         Invest::Topic.all.clear
         list_topics_by_first_letter

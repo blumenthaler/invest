@@ -1,12 +1,10 @@
 class Invest::Scraper
   
-  def self.get_page
+  def get_page
     Nokogiri::HTML(open("https://www.investopedia.com/financial-term-dictionary-4769738"))
   end
-
-  @@topic_indexes = []
   
-  def self.scrape_topic_page_from_input(input)
+  def scrape_topic_page_from_input(input)
     alphabet_front = ("A".."M").to_a
     alphabet_back = ("N".."Z").to_a
     @@topic_indexes = []
@@ -35,32 +33,30 @@ class Invest::Scraper
     binding.pry
   end
   
-  
-# iterates over each topic instance, finds the topic that matches input (desired), scrape for takeaways  
-  def takeaways(input)
-    Invest::Topic.all.each_with_index do |topic, index|
-      if input == index + 1
-        topic.takeaways = Nokogiri::HTML(open(topic.url)).css("div#mntl-sc-block-callout-body_1-0 ul li").map{|n| n.text}
-      end
-    end
-  end
-  
-  def definition(input)
-    Invest::Topic.all.each_with_index do |topic, index|
-      if input == index + 1
-        topic.definition = Nokogiri::HTML(open(topic.url)).css("p#mntl-sc-block_1-0-1").text.delete("\n")
-      end
-    end
-  end
-    
-    
-  
 # makes topic object instances from index
-  def self.make_topics
+  def make_topics
     @@topic_indexes.each do |r|
       Invest::Topic.new_from_index_page(r)
     end
   end
   
+  
+# iterates over each topic instance, finds the topic that matches input (desired), scrape for takeaways  
+  def takeaways(input)
+    Invest::Topic.all.each_with_index do |topic, index|
+      if input.to_i == index + 1
+        topic.takeaways = Nokogiri::HTML(open(topic.url)).css("div#mntl-sc-block-callout-body_1-0 ul li").map{|n| n.text}
+      end
+    end
+    binding.pry
+  end
+  
+  def definition(input)
+    Invest::Topic.all.each_with_index do |topic, index|
+      if input.to_i == index + 1
+        topic.definition = Nokogiri::HTML(open(topic.url)).css("p#mntl-sc-block_1-0-1").text.delete("\n")
+      end
+    end
+  end
   
  end
