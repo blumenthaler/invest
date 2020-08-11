@@ -15,7 +15,6 @@ class Invest::Scraper
       if alphabet_front.include?(input)
         alphabet_front.each_with_index do |letter, index|
           if input.chr == letter
-            # make sure all of these are the nokogiri'd html of each index page
             @@topic_indexes = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a.dictionary-top24-list__sublist.mntl-text-link")
           end
         end
