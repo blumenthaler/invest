@@ -4,7 +4,6 @@ class Invest::CLI
  #   Invest::Scraper.new.make_topics
     puts "---------Welcome to Investment Definitions!---------"
     list_topics_by_first_letter
-    display_definitions
   end
 
   def list_topics_by_first_letter
@@ -22,8 +21,10 @@ class Invest::CLI
           Invest::Topic.all.each_with_index do |topic, index|
           puts "#{index + 1}. #{topic.name}"
           end
+        display_definitions
       else
         puts "I am sorry, I do not understand your input, please try again."
+        puts "----------------------------------------------------"
         list_topics_by_first_letter
       end
   end
@@ -31,9 +32,10 @@ class Invest::CLI
   def display_definitions
     input = nil
     while input != "exit"
+    puts "----------------------------------------------------"
     puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
     puts "----------------------------------------------------"
-    input = gets.strip.downcase
+    input = gets.strip
       if input.to_i > 0
         @scraper.definition(input)
         @scraper.takeaways(input)
@@ -42,7 +44,7 @@ class Invest::CLI
         puts " "
         puts topic.definition
         if topic.takeaways == nil || topic.takeaways == []
-          puts " "
+          puts ""
         else
           puts " "
           puts "----------KEY TAKEAWAYS-----------"
@@ -54,7 +56,6 @@ class Invest::CLI
         puts " "
         puts "----------------------------------------------------"  
         puts "If you would like to learn more, visit: #{topic.url}"
-        puts "----------------------------------------------------"
       elsif input == "topics"
         Invest::Topic.all.clear
         list_topics_by_first_letter
