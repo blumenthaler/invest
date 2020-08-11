@@ -31,14 +31,12 @@ class Invest::Scraper
   return @@topic_indexes
   end
   
-# makes topic object instances from index
   def make_topics
     @@topic_indexes.each do |r|
       Invest::Topic.new_from_index_page(r)
     end
   end
-  
-# iterates over each topic instance, finds the topic that matches input (desired), scrape for takeaways  
+
   def takeaways(input)
     Invest::Topic.all.each_with_index do |topic, index|
       if input.to_i == index + 1
