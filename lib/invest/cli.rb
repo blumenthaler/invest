@@ -14,7 +14,7 @@ class Invest::CLI
     @scraper = Invest::Scraper.new
       if input == "exit"
         exit_program
-      elsif alphabet.include?(input) || input == "#"
+      elsif input != "exit" && (alphabet.include?(input) || input == "#")
         @scraper.scrape_topic_page_from_input(input)
         @scraper.make_topics
         puts "----------------FINANCIAL TERMS (#{input})-----------------"
@@ -40,7 +40,7 @@ class Invest::CLI
         @scraper.definition(input)
         @scraper.takeaways(input)
         topic = Invest::Topic.all[input.to_i - 1]
-        puts "--------#{input.to_i}. #{topic.name}---------"
+        puts "--------#{input.to_i}. #{topic.name.upcase}---------"
         puts " "
         puts topic.definition
         if topic.takeaways == nil || topic.takeaways == []
