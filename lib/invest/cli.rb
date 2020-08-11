@@ -31,13 +31,12 @@ class Invest::CLI
   def display_definitions
     input = nil
     while input != "exit"
-    puts "----------------------------------------------------"
     puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
     puts "----------------------------------------------------"
     input = gets.strip.downcase
       if input.to_i > 0
-        definition = @scraper.definition(input)
-        takeaways = @scraper.takeaways(input)
+        @scraper.definition(input)
+        @scraper.takeaways(input)
         binding.pry
         topic = Invest::Topic.all[input.to_i - 1]
         puts "--------#{input.to_i}. #{topic.name}---------"

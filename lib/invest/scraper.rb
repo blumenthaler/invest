@@ -30,7 +30,6 @@ class Invest::Scraper
       end
     end
   return @@topic_indexes
-    binding.pry
   end
   
 # makes topic object instances from index
@@ -40,7 +39,6 @@ class Invest::Scraper
     end
   end
   
-  
 # iterates over each topic instance, finds the topic that matches input (desired), scrape for takeaways  
   def takeaways(input)
     Invest::Topic.all.each_with_index do |topic, index|
@@ -48,7 +46,6 @@ class Invest::Scraper
         topic.takeaways = Nokogiri::HTML(open(topic.url)).css("div#mntl-sc-block-callout-body_1-0 ul li").map{|n| n.text}
       end
     end
-    binding.pry
   end
   
   def definition(input)
