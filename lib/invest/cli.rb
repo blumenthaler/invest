@@ -1,7 +1,15 @@
 class Invest::CLI
   
+# Change exit logic:
+#   puts "Would you like to view another topic definition? (Y/N)"
+#     if input == "N"
+#        exit_program
+#     elsif input == "Y"
+#        list_topics_by_first_letter
+#     end
+
+  
   def call
- #   Invest::Scraper.new.make_topics
     puts "---------Welcome to Investment Definitions!---------"
     list_topics_by_first_letter
   end
