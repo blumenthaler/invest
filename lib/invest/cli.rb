@@ -15,7 +15,7 @@ class Invest::CLI
   end
 
   def list_topics_by_first_letter
-    puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
+    puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):".wrap_to_limit(80)
     puts "----------------------------------------------------"
     alphabet = ("A".."Z").to_a
     input = gets.strip
@@ -41,7 +41,7 @@ class Invest::CLI
     input = nil
     while input != "exit"
     puts "----------------------------------------------------"
-    puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit."
+    puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit.".wrap_to_limit(80)
     puts "----------------------------------------------------"
     input = gets.strip
       if input.to_i > 0
@@ -50,7 +50,7 @@ class Invest::CLI
         topic = Invest::Topic.all[input.to_i - 1]
         puts "--------#{input.to_i}. #{topic.name.upcase}---------"
         puts " "
-        puts topic.definition
+        puts topic.definition.wrap_to_limit(60)
         if topic.takeaways == nil || topic.takeaways == []
           puts ""
         else
@@ -58,12 +58,13 @@ class Invest::CLI
           puts "----------KEY TAKEAWAYS-----------"
           topic.takeaways.each_with_index do |t_a, i| 
             puts " "
-            puts "#{i + 1}. #{t_a}"
+            puts "#{i + 1}. #{t_a.wrap_to_limit(60)}"
           end
         end
         puts " "
         puts "----------------------------------------------------"  
-        puts "If you would like to learn more, visit: #{topic.url}"
+        puts "If you would like to learn more, visit: "
+        puts "#{topic.url}"
       elsif input == "topics"
         Invest::Topic.all.clear
         list_topics_by_first_letter
