@@ -1,9 +1,5 @@
 class Invest::CLI
   
-# Change exit logic:
-#   
-
-  
   def call
     puts "---------Welcome to Investment Definitions!---------"
     list_topics_by_first_letter
@@ -21,9 +17,7 @@ class Invest::CLI
         @scraper.scrape_topic_page_from_input(input)
         @scraper.make_topics
         puts "----------------FINANCIAL TERMS (#{input})-----------------"
-          Invest::Topic.all.each_with_index do |topic, index|
-          puts "#{index + 1}. #{topic.name}"
-          end
+        Invest::Topic.puts_topics
         display_definitions
       else
         puts "I am sorry, I do not understand your input, please try again."
@@ -40,25 +34,7 @@ class Invest::CLI
       if input.to_i > 0
         @scraper.definition(input)
         @scraper.takeaways(input)
-        topic = Invest::Topic.all[input.to_i - 1]
-        puts "--------#{input.to_i}. #{topic.name.upcase}---------"
-        puts " "
-        puts topic.definition.wrap_to_limit(60)
-        if topic.takeaways == nil || topic.takeaways == []
-          puts ""
-        else
-          puts " "
-          puts "----------KEY TAKEAWAYS-----------"
-          topic.takeaways.each_with_index do |t_a, i| 
-            puts " "
-            puts "#{i + 1}. #{t_a.wrap_to_limit(60)}"
-          end
-        end
-        puts " "
-        puts "----------------------------------------------------"  
-        puts "If you would like to learn more, visit: "
-        puts "#{topic.url}"
-        puts "----------------------------------------------------"
+        Invest::Topic.puts_topic_from_input(input)
         puts "Would you like to view another topic definition? (Y/N)"
         input = gets.strip
           if input == "N"
