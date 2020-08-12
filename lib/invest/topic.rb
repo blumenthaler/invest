@@ -32,7 +32,7 @@ class Invest::Topic
     topic = self.all[input.to_i - 1]
     puts "--------#{input.to_i}. #{topic.name.upcase}---------"
     puts " "
-    puts topic.definition.wrap_to_limit(60)
+    puts topic.definition
       if topic.takeaways == nil || topic.takeaways == []
         puts ""
       else
@@ -40,7 +40,7 @@ class Invest::Topic
         puts "----------KEY TAKEAWAYS-----------"
         topic.takeaways.each_with_index do |t_a, i| 
           puts " "
-          puts "#{i + 1}. #{t_a.wrap_to_limit(60)}"
+          puts "#{i + 1}. #{t_a}"
         end
       end
     puts " "

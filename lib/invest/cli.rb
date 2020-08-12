@@ -8,7 +8,7 @@ class Invest::CLI
   def list_topics_by_first_letter
     Invest::Topic.all.clear
     puts "----------------------------------------------------"
-    puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):".wrap_to_limit(80)
+    puts "Please enter the first letter (A-Z) of the topic you wish to learn more about (or # for number):"
     puts "----------------------------------------------------"
     alphabet = ("A".."Z").to_a
     input = gets.strip
@@ -28,26 +28,34 @@ class Invest::CLI
   
   def display_definitions
     puts "----------------------------------------------------"
-    puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size}), type topics to see the list of topics again, or type exit.".wrap_to_limit(80)
+    puts "Select the number of the topic you would like to learn more about (1-#{Invest::Topic.all.size})."
     puts "----------------------------------------------------"
     input = gets.strip
       if input.to_i > 0
         @scraper.definition(input)
         @scraper.takeaways(input)
         Invest::Topic.puts_topic_from_input(input)
-        puts "Would you like to view another topic definition? (Y/N)"
-        input = gets.strip
-          if input == "N"
-            exit_program
-          elsif input == "Y"
-            list_topics_by_first_letter
-          end
-      elsif input == "topics"
-        list_topics_by_first_letter
-      elsif input == "exit"
-        exit_program
+        view_another_topic
       else
+        puts "----------------------------------------------------"
         puts "I am sorry, I do not understand your input, please try again."
+        puts "----------------------------------------------------"
+        display_definitions
+      end
+  end
+  
+  def view_another_topic
+    puts "Would you like to view another topic definition? (Y/N)"
+    input = gets.strip
+      if input == "N"
+        exit_program
+      elsif input == "Y"
+        list_topics_by_first_letter
+      else
+        puts "----------------------------------------------------"
+        puts "I am sorry, I do not understand your input, please try again."
+        puts "----------------------------------------------------"
+        view_another_topic
       end
   end
     

@@ -2,7 +2,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
-require 'wrapify'
+# require 'wrapify'
 
 require_relative "./invest/version"
 require_relative './invest/cli'
