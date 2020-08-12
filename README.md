@@ -1,7 +1,7 @@
 
 # Invest
 
-Welcome to Investing Definitions! This Ruby Gem provides a CLI to view the definitions of topics listed on Investopedia's Dictionary of Financial Terms.
+Welcome to Investment Definitions! This Ruby Gem provides a CLI to view the definitions of topics listed on Investopedia's Dictionary of Financial Terms.
 
 ## Installation
 
