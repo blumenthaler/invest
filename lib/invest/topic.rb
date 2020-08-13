@@ -22,32 +22,4 @@ class Invest::Topic
     @@all
   end
   
-  def self.puts_topics
-    self.all.each_with_index do |topic, index|
-      puts "#{index + 1}. #{topic.name}"
-    end
-  end
-  
-  def self.puts_topic_from_input(input)
-    topic = self.all[input.to_i - 1]
-    puts "--------#{input.to_i}. #{topic.name.upcase}---------"
-    puts " "
-    puts topic.definition
-      if topic.takeaways == nil || topic.takeaways == []
-        puts ""
-      else
-        puts " "
-        puts "----------KEY TAKEAWAYS-----------"
-        topic.takeaways.each_with_index do |t_a, i| 
-          puts " "
-          puts "#{i + 1}. #{t_a}"
-        end
-      end
-    puts " "
-    puts "----------------------------------------------------"  
-    puts "If you would like to learn more, visit: "
-    puts "#{topic.url}"
-    puts "----------------------------------------------------"
-  end
-  
 end

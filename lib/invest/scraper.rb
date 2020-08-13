@@ -37,20 +37,10 @@ class Invest::Scraper
     end
   end
 
-  def takeaways(input)
-    Invest::Topic.all.each_with_index do |topic, index|
-      if input.to_i == index + 1
-        topic.takeaways = Nokogiri::HTML(open(topic.url)).css("div#mntl-sc-block-callout-body_1-0 ul li").map{|n| n.text}
-      end
-    end
-  end
-  
-  def definition(input)
-    Invest::Topic.all.each_with_index do |topic, index|
-      if input.to_i == index + 1
-        topic.definition = Nokogiri::HTML(open(topic.url)).css("p#mntl-sc-block_1-0-1").text.delete("\n")
-      end
-    end
+  def scrape_details(input)
+    topic = Invest::Topic.all[input.to_i - 1]
+    topic.takeaways = Nokogiri::HTML(open(topic.url)).css("div#mntl-sc-block-callout-body_1-0 ul li").map{|n| n.text}
+    topic.definition = Nokogiri::HTML(open(topic.url)).css("p#mntl-sc-block_1-0-1").text.delete("\n")
   end
   
  end
