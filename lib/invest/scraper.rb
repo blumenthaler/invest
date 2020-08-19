@@ -14,15 +14,15 @@ class Invest::Scraper
     elsif input != "#"
       if alphabet_front.include?(input)
         alphabet_front.each_with_index do |letter, index|
-          if input.chr == letter
+          if input == letter
             @@topic_indexes = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0-#{index + 1} a.dictionary-top24-list__sublist.mntl-text-link")
           end
         end
       elsif alphabet_back.include?(input)
         alphabet_back.each_with_index do |letter, index|
-          if input.chr == letter && letter == "N"
+          if input == letter && letter == "N"
             @@topic_indexes = self.get_page.css("div#dictionary-top24-list__sublist-content_2-0 a.dictionary-top24-list__sublist.mntl-text-link")
-          elsif input.chr == letter && letter != "N"
+          elsif input == letter && letter != "N"
             @@topic_indexes = self.get_page.css("div#dictionary-top24-list__sublist-content_2-0-#{index} a.dictionary-top24-list__sublist.mntl-text-link")
           end
         end  
