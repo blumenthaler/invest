@@ -11,7 +11,7 @@ class Invest::Scraper
     
     if input == "#"
       @@topic_indexes = self.get_page.css("div#dictionary-top24-list__sublist-content_1-0 a.dictionary-top24-list__sublist.mntl-text-link")
-    elsif input != "exit"
+    elsif input != "#"
       if alphabet_front.include?(input)
         alphabet_front.each_with_index do |letter, index|
           if input.chr == letter
